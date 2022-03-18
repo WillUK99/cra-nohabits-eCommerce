@@ -1,7 +1,6 @@
 import React from 'react'
-
 import "./App.css"
-import "./categories.styles.scss"
+import CategoryMenu from './components/category-menu/category-menu.component'
 
 function App() {
   const categories = [
@@ -17,7 +16,7 @@ function App() {
     },
     {
       "id": 3,
-      "title": "sneakers",
+      "title": "shoes",
       "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png"
     },
     {
@@ -33,24 +32,7 @@ function App() {
   ]
 
   return (
-    <div className="categories-container">
-      {
-        categories.map(({ title, id, imageUrl }) => (
-          <div key={id} className="category-container">
-            <div
-              className="background-image"
-              style={{
-                backgroundImage: `url(${imageUrl})`
-              }}
-            />
-            <div className="category-body-container">
-              <h2>{title.toUpperCase()}</h2>
-              <p>SHOP NOW</p>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <CategoryMenu categories={categories}></CategoryMenu>
   )
 }
 
