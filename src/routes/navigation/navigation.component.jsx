@@ -15,7 +15,7 @@ function NavBar() {
           <Link className="navbar__link" to="/shop">
             SHOP
           </Link>
-          <Link className="navbar__link" to="/signin">
+          <Link className="navbar__link" to="/auth">
             SIGN IN
           </Link>
         </div>
