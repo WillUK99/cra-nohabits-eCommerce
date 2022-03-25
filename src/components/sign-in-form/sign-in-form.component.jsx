@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
+
 import FormInput from '../form-input/form-input.component'
 import Button from "../button/button.component"
 
 import {
-  createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
@@ -23,10 +23,7 @@ function SignInForm() {
   const { email, password } = formFields
 
   const resetFormFields = () => {
-    setFormFields({
-      email: "",
-      password: "",
-    })
+    setFormFields(defaultFormFields)
   }
 
   const handleChange = (event) => {
@@ -39,7 +36,9 @@ function SignInForm() {
     event.preventDefault()
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password)
+      // As the user should already be in the db we don't need to create another document for them, just authenticate them
+      const { user } = await signInAuthUserWithEmailAndPassword(email, password)
+
       resetFormFields()
     } catch (err) {
       switch (err.code) {
@@ -59,8 +58,7 @@ function SignInForm() {
 
   const signInWithGoogle = async () => {
     try {
-      const { user } = await signInWithGooglePopup()
-      const userDocRef = await createUserDocumentFromAuth(user)
+      await signInWithGooglePopup()
     } catch (err) {
       console.log(err)
     }

@@ -41,8 +41,10 @@ function SignUpForm() {
     }
 
     try {
+      // We need to authenticate the user as well as create a new user document in our db
       const { user } = await createAuthUserWithEmailAndPassword(email, password)
-      const userDocRef = await createUserDocumentFromAuth(user, { displayName })
+      await createUserDocumentFromAuth(user, { displayName })
+
       resetFormFields()
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
