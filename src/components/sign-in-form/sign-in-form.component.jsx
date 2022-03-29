@@ -12,10 +12,8 @@ import {
 import "./sign-in-form.styles.scss"
 
 const defaultFormFields = {
-  displayName: "",
   email: "",
   password: "",
-  confirmPassword: "",
 }
 
 function SignInForm() {
