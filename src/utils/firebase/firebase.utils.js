@@ -67,6 +67,7 @@ export const getCategoriesAndDocuments = async () => {
 
   const q = query(collectionRef)
 
+  // Get the document snapshots we want to query
   const querySnapshot = await getDocs(q)
   const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
     // Get the data from the docSnapshot in this case we want the title and items
@@ -80,7 +81,7 @@ export const getCategoriesAndDocuments = async () => {
      */
     acc[title.toLowerCase()] = items
     // console.log(acc)
-    console.log(title, items)
+    // console.log(title, items)
     // the acc is the object we want to return for each subsequent iteration of the reducer.
     return acc
   }, {})
