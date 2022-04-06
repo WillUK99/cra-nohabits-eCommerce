@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoryMenu from '../../components/category-menu/category-menu.component'
+import DirectoryMenu from '../../components/directory-menu/directory-menu.component'
 
 function Home() {
   const categories = [
@@ -31,7 +31,7 @@ function Home() {
   ]
 
   return (
-    <CategoryMenu categories={categories}></CategoryMenu>
+    <DirectoryMenu categories={categories}></DirectoryMenu>
   )
 }
 
