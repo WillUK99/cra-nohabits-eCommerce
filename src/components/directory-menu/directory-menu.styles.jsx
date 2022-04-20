@@ -5,4 +5,9 @@ export const DirectoryContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex-flow: column nowrap;
+
+  @media (min-width: 500px) {
+    flex-flow: row wrap;
+  }
 `
