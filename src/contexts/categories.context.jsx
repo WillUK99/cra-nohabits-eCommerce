@@ -10,7 +10,7 @@ export const CategoriesContext = createContext({
 })
 
 export const CategoriesProvider = ({ children }) => {
-  const [categoriesMap, setCategoriesMap] = useState({}) // setting intial state of products from our mock data
+  const [categoriesMap, setCategoriesMap] = useState({})
   
   // useEffect(() => {
   //   // writing shopdata to firebase

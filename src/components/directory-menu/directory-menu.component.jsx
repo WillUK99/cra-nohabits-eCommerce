@@ -1,16 +1,45 @@
 import React from 'react'
 import DirectoryItem from '../directory-item/directory-item.component'
-import "./directory-menu.styles.scss"
 
-function DirectoryMenu({ categories }) {
+import { DirectoryContainer } from "./directory-menu.styles.jsx"
+
+const categories = [
+  {
+    "id": 1,
+    "title": "hats",
+    "imageUrl": "https://i.ibb.co/cvpntL1/hats.png"
+  },
+  {
+    "id": 2,
+    "title": "jackets",
+    "imageUrl": "https://i.ibb.co/px2tCc3/jackets.png"
+  },
+  {
+    "id": 3,
+    "title": "shoes",
+    "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png"
+  },
+  {
+    "id": 4,
+    "title": "womens",
+    "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
+  },
+  {
+    "id": 5,
+    "title": "mens",
+    "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
+  }
+]
+
+function DirectoryMenu() {
   return (
-    <div className="directory-menu">
+    <DirectoryContainer>
       {
         categories.map((category) => (
           <DirectoryItem key={category.id} category={category} />
         ))
       }
-    </div>
+    </DirectoryContainer>
   )
 }
 

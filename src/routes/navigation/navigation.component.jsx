@@ -10,7 +10,14 @@ import { CartContext } from '../../contexts/cart.context'
 
 import { signOutUser } from "../../utils/firebase/firebase.utils"
 
-import "./navigation.styles.scss"
+import "./navigation.styles.jsx"
+
+import { 
+  NavigationContainer, 
+  LogoContainer,
+  NavLinksContainer,
+  NavLink,
+ } from "./navigation.styles.jsx"
 
 function NavBar() {
   const { currentUser } = useContext(UserContext)
@@ -18,24 +25,24 @@ function NavBar() {
 
   return (
     <>
-      <div className="navbar">
-        <Link className="navbar__logo logo" to="/">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <Logo></Logo>
-        </Link>
-        <div className="navbar__links">
-          <Link className="navbar__link" to="/shop">
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLink to="/shop">
             SHOP
-          </Link>
+          </NavLink>
           {
             currentUser ?
-              (<span className="navbar__link" onClick={signOutUser}>SIGN OUT</span>)
+              (<NavLink as="span" onClick={signOutUser}>SIGN OUT</NavLink>)
               :
-              (<Link className="navbar__link" to="/auth">SIGN IN</Link>)
+              (<NavLink to="/auth">SIGN IN</NavLink>)
           }
           <CartIcon></CartIcon>
-        </div>
+        </NavLinksContainer>
         {isCartOpen && <CartDropdown />}
-      </div>
+      </NavigationContainer>
       <Outlet />
     </>
   )

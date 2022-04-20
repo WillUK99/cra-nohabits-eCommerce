@@ -1,4 +1,6 @@
-.authentication-container {
+import styled from "styled-components"
+
+export const AuthenticationContainer = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -10,4 +12,4 @@
   @media (min-width: 1050px) {
     flex-flow: row; 
   }
-}
+`

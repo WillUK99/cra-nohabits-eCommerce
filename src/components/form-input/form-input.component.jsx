@@ -1,20 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import "./form-input.styles.scss"
+import {
+  GlobalStyle,
+  InputContainer,
+  InputField,
+  InputLabel,
+} from "./form-input.styles.jsx"
 
 function FormInput({ label, inputOptions }) {
   return (
-    <div className="group">
-      <input className="form-input" {...inputOptions} />
-      {
-        label &&
-        <label
-          className={`${inputOptions.value.length ? "shrink" : ""} 
-          form-input-label`}>
-          {label}
-        </label>
-      }
-    </div>
+    <>
+      <GlobalStyle />
+      <InputContainer>
+        <InputField {...inputOptions} />
+        {
+          label &&
+          <InputLabel shrink={inputOptions.value.length}>
+            {label}
+          </InputLabel>
+        }
+      </InputContainer>
+    </>
   )
 }
 
