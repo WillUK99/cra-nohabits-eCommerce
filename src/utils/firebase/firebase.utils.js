@@ -61,6 +61,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   return await batch.commit()
 }
 
+// writing shopdata to firebase
 export const getCategoriesAndDocuments = async () => {
   // Get a reference to the collection we want to query
   const collectionRef = collection(db, "categories")
@@ -85,7 +86,7 @@ export const getCategoriesAndDocuments = async () => {
     // the acc is the object we want to return for each subsequent iteration of the reducer.
     return acc
   }, {})
-  
+
   // return the categoryMap object
   return categoryMap
 }
