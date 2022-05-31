@@ -1,4 +1,5 @@
-import React, { createContext, useState, useReducer } from 'react'
+import React, { createContext, useReducer } from 'react'
+import { createAction } from '../utils/reducers/reducers.utils'
 
 const addCartItem = (cartItems, itemToAdd) => {
   // find if cartItems contains itemToAdd
@@ -52,6 +53,7 @@ export const CartContext = createContext({
 
 const CART_ACTION_TYPES = {
   SET_CART_ITEMS: 'SET_CART_ITEMS',
+  SET_CART_OPEN: 'SET_CART_OPEN',
 }
 
 const INITIAL_STATE = {
@@ -71,19 +73,21 @@ const cartReducer = (state, action) => {
         ...state,
         ...payload // spread in the entire payload object
       }
+    case CART_ACTION_TYPES.SET_CART_OPEN:
+      return {
+        ...state,
+        isCartOpen: payload,
+      }
     default:
       throw new Error(`Unhandled action type: ${type} in cartReducer`)
   }
 }
 
 export const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false)
-
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE)
-  const { cartItems, cartCount, totalCartPrice, } = state
+  const { cartItems, cartCount, totalCartPrice, isCartOpen} = state
 
   /**
-   * 
    * @param {array} newCartItems
    * NOTE: This is a reducer, so we are not updating the state directly, but instead we are passing in the new state to the cartReducer in the form of a payload.
    */
@@ -97,7 +101,11 @@ export const CartProvider = ({ children }) => {
       cartTotal: newCartTotalPrice,
     }
 
-    dispatch({ type: CART_ACTION_TYPES.SET_CART_ITEMS, payload })
+    dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, payload))
+  }
+
+  const setIsCartOpen = (bool) => {
+    dispatch(createAction(CART_ACTION_TYPES.SET_CART_OPEN, bool))
   }
 
   const addItemToCart = (itemToAdd) => {

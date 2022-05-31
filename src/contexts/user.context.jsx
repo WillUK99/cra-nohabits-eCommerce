@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useReducer } from 'react'
-
+import { createAction } from '../utils/reducers/reducers.utils'
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../utils/firebase/firebase.utils"
 
 // This is the actual value you want to access/this is the value you want to access from the context
@@ -39,7 +39,7 @@ export const UserProvider = ({ children }) => {
   console.log('UserProvider: currentUser', currentUser)
 
   const setCurrentUser = (user) => {
-    dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user))
   }
 
   // consolidating auth across web app
@@ -58,12 +58,15 @@ export const UserProvider = ({ children }) => {
        */
       setCurrentUser(user)
     })
-    
+
     return unsubscribe
   }, [])
-  
-  const value = { currentUser, setCurrentUser } // 'value' allows us to acces the currentUser/setCurrentUser from the context
-  
+
+  const value = { 
+    currentUser, 
+    setCurrentUser,
+  } // 'value' allows us to acces the currentUser/setCurrentUser from the context
+
   return (
     <UserContext.Provider value={value}> {/*this is the value you want to access from the context*/}
       {children} {/* this is the component that is being rendered */}
