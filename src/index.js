@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 
 import App from './App';
-import { CategoriesProvider } from './contexts/categories.context';
+// import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/cart.context';
 
 
@@ -18,11 +18,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}> 
       <BrowserRouter>
-          <CategoriesProvider> {/*Products context will need access values from user context*/}
             <CartProvider>
               <App />
             </CartProvider>
-          </CategoriesProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
