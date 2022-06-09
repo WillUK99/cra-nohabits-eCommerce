@@ -70,25 +70,8 @@ export const getCategoriesAndDocuments = async () => {
 
   // Get the document snapshots we want to query
   const querySnapshot = await getDocs(q)
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    // Get the data from the docSnapshot in this case we want the title and items
-    const { title, items } = docSnapshot.data()
-    /**
-     * We want to return an object with the title as the key and the items as the value to the accumulator.
-     * in this case the value of the object is "items" is an object of the items in the category, the title is the key.
-     * In this case the value of the object we are creating on each iteration of the reducer will have its key as the title and the value as the items{}.
-     * 
-     * console.log will show the object we are creating on each iteration of the reducer.
-     */
-    acc[title.toLowerCase()] = items
-    // console.log(acc)
-    // console.log(title, items)
-    // the acc is the object we want to return for each subsequent iteration of the reducer.
-    return acc
-  }, {})
-
-  // return the categoryMap object
-  return categoryMap
+  const categoriesArray = querySnapshot.docs.map((docSnapshot) => docSnapshot.data())
+  return categoriesArray
 }
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
