@@ -10,8 +10,6 @@ import Category from '../category/category.component'
 
 import "./shop.styles.scss"
 
-// Add category fetch here for redux
-
 function Shop() {
   const dispatch = useDispatch()
 
@@ -19,7 +17,6 @@ function Shop() {
     // fetching/reading data from firebase
     const getCategoriesMap = async () => {
       const categoriesArray = await getCategoriesAndDocuments()
-      console.log(categoriesArray)
       dispatch(setCategories(categoriesArray))
     }
     getCategoriesMap()
