@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -10,7 +10,6 @@ import CartItem from '../cart-item/cart-item.component'
 import {
   CartDropdownContainer,
   CartItemsContainer,
-  ButtonStyled,
 } from "./cart-dropdown.styles.jsx"
 
 function CartDropdown() {

@@ -44,7 +44,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
 export const db = getFirestore()
 
-// Allows us to write to the firebase db with a batch of Objects -> see product.context.jsx ~line 18
+// Allows us to write to the firebase db with a batch of Objects 
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   // Get a reference to the collection
   const collectionRef = collection(db, collectionKey)
