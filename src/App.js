@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux'
 
 import { Routes, Route } from 'react-router-dom'
 
-import { setCurrentUser } from './store/user/user.action'
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase.utils"
+import { checkUserSession } from './store/user/user.action'
+
 import "./App.css"
+
 import NavBar from './routes/navigation/navigation.component'
 import Home from './routes/home/home.component'
 import Authentication from './routes/authentication/authentication.component'
@@ -16,21 +17,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      /**
-       * if listener detects a user is logged and user != null in we pass the user 
-       * of to createUserDocumentFromAuth to create a user doc in the db
-       */
-      if (user) {
-        createUserDocumentFromAuth(user)
-      }
-      /**
-       * dispatch the setCurrentUser action to set the current user in the store
-       */
-      dispatch(setCurrentUser(user))
-    })
-
-    return unsubscribe
+    dispatch(checkUserSession())
   }, [])
 
   return (

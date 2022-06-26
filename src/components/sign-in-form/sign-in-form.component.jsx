@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+
 import FormInput from '../form-input/form-input.component'
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component"
 
 import {
-  createUserDocumentFromAuth,
-  signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils'
+
+import { googleSignInStart, emailSignInStart } from '../../store/user/user.action'
 
 import {
   SignInContainer,
@@ -20,6 +22,7 @@ const defaultFormFields = {
 }
 
 function SignInForm() {
+  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
@@ -34,34 +37,20 @@ function SignInForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
+    if (!email || !password) {
+      alert("Invalid form field")
+      return
+    }
     try {
-      // As the user should already be in the db we don't need to create another document for them, just authenticate them
-      const { user } = await signInAuthUserWithEmailAndPassword(email, password)
-
+      dispatch(emailSignInStart(email, password))
       resetFormFields()
-    } catch (err) {
-      switch (err.code) {
-        case "auth/wrong-password":
-          alert("incorrect password")
-          break
-
-        case "auth/user-not-found":
-          alert("email not found")
-          break
-
-        default:
-          console.error(err)
-      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
   const signInWithGoogle = async () => {
-    try {
-      await signInWithGooglePopup()
-    } catch (err) {
-      console.log(err)
-    }
+    dispatch(googleSignInStart())
   }
 
   return (
@@ -93,7 +82,7 @@ function SignInForm() {
         />
 
         <ButtonsContainer>
-          <Button type="submit">Login</Button>
+          <Button type="submit" onClick={handleSubmit}>Login</Button>
           <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>Google Login</Button>
         </ButtonsContainer>
       </form>

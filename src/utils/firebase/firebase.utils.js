@@ -74,13 +74,13 @@ export const getCategoriesAndDocuments = async () => {
   return categoriesArray
 }
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
+export const createUserSnapshotFromAuth = async (userAuth, additionalInformation) => {
   if (!userAuth) return
   // Get a reference to the document we want to query
   // We want to query the users collection. 
   // And the userAuth.uid is the unique id of the user document we want to query
   const userDocRef = doc(db, "users", userAuth.uid)
-  // console.log(userDocRef)
+  // console.log(userAuth)
 
   // Get the data from the document we want to query
   const userSnapshot = await getDoc(userDocRef)
@@ -104,7 +104,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     }
   }
 
-  return userDocRef
+  return userSnapshot
 }
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -123,4 +123,19 @@ export const signOutUser = async () => await signOut(auth)
 
 export const onAuthStateChangedListener = async (callback) => {
   onAuthStateChanged(auth, callback)
+}
+
+export const getCurrentUser = async () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe() // to stop memory leak
+        resolve(userAuth)
+      },
+      reject
+    )
+
+    return unsubscribe
+  })
 }
