@@ -1,4 +1,4 @@
-import { createAction } from "../../utils/reducers/reducers.utils"
+import { createAction } from "../../utils/reducers/reducers.utils.ts"
 import { CART_ACTION_TYPES } from "./cart.types"
 
 export const addCartItem = (cartItems, itemToAdd) => {

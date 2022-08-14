@@ -1,5 +1,5 @@
 import { USER_ACTION_TYPES } from './user.types'
-import { createAction } from '../../utils/reducers/reducers.utils'
+import { createAction } from '../../utils/reducers/reducers.utils.ts'
 
 export const checkUserSession = () => {
   return createAction(USER_ACTION_TYPES.CHECK_USER_SESSION)
