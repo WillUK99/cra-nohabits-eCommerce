@@ -16,7 +16,7 @@ export type Matchable<AC extends () => AnyAction> = AC & {
   match(action: AnyAction): action is ReturnType<AC>
 }
 
-// actionCreator is a function hence why the generic syntax '<AC extends () => AnyAction ...>'
+// Ac or actionCreator is a function hence why the generic syntax '<AC extends () => AnyAction ...>'
 export function withMatcher<AC extends () => AnyAction & { type: string }>(actionCreator: AC): Matchable<AC>
 export function withMatcher<AC extends (...args: any[]) => AnyAction & { type: string}>(actionCreator: AC): Matchable<AC>
 /**
