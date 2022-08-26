@@ -7,9 +7,18 @@ export type FetchCategoriesSuccess = ActionWithPayload<CATEGORIES_ACTION_TYPES.F
 export type FetchCategoriesFailed = ActionWithPayload<CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, Error>
 
 export const fetchCategoriesStart = withMatcher((): FetchCategoriesStart => {
+  /**
+   * We don't need to pass the function an explicit type - TS can implicitly pass through the type - due to us using an enum value
+   */
   return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
 })
 
+/**
+ * Below are the two methods we assign to action creator functions -> see reducer.utils
+ * 
+ * .type returns back the type of the action -> eg CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START
+ * .match() is a type predicate which allows for the narrowing of this functions type. 
+ */
 // fetchCategoriesStart.type
 // fetchCategoriesStart.match
 
